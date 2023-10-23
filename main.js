@@ -9,5 +9,7 @@ window.addEventListener("load", function () {
       this.width = width;
       this.height = height;
     }
+    update() {}
+    draw() {}
   }
 });
