@@ -21,6 +21,7 @@ export class Player {
       this.x = this.game.width - this.width;
     //vertical movement
     this.y += this.vy;
+    if (input.includes("ArrowUp")) this.vy -= 20;
   }
   draw(context) {
     context.drawImage(
