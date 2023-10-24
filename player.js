@@ -19,6 +19,8 @@ export class Player {
     if (this.x < 0) this.x = 0;
     if (this.x > this.game.width - this.width)
       this.x = this.game.width - this.width;
+    //vertical movement
+    this.y += this.vy;
   }
   draw(context) {
     context.drawImage(
@@ -32,5 +34,8 @@ export class Player {
       this.width,
       this.height
     );
+  }
+  onground() {
+    return this.y >= this.game.height - this.height;
   }
 }
