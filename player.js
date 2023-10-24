@@ -22,7 +22,8 @@ export class Player {
       this.x = this.game.width - this.width;
     //vertical movement
     this.y += this.vy;
-    if (input.includes("ArrowUp") && this.onGround()) this.vy -= 2;
+    if (input.includes("ArrowUp") && this.onGround()) this.vy -= 10;
+    if (!this.onGround()) this.vy += this.weight;
   }
   draw(context) {
     context.drawImage(
