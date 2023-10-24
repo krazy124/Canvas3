@@ -10,5 +10,7 @@ class State {
 }
 
 export class Sitting extends State {
-  constructor(player) {}
+  constructor(player) {
+    super("SITTING");
+  }
 }
