@@ -23,6 +23,7 @@ window.addEventListener("load", function () {
   console.log(game);
 
   function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     game.update();
     game.draw(ctx);
     requestAnimationFrame(animate);
