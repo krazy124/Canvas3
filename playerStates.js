@@ -4,5 +4,11 @@ const states = {
   JUMPING: 2,
 };
 class State {
-  constructor(state) {}
+  constructor(state) {
+    this.state = state;
+  }
+}
+
+export class Sitting extends State {
+  constructor(player) {}
 }
