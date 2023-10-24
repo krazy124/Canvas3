@@ -14,6 +14,7 @@ export class Player {
     this.x += this.speed;
     if (input.includes("ArrowRight")) this.speed = this.maxSpeed;
     else if (input.includes("ArrowLeft")) this.speed = -this.maxSpeed;
+    else this.speed = 0;
   }
   draw(context) {
     context.drawImage(
