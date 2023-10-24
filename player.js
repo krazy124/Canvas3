@@ -6,6 +6,7 @@ export class Player {
     this.x = 0;
     this.y = this.game.height - this.height;
     this.vy = 0;
+    this.weight = 1;
     this.image = document.getElementById("player");
     this.speed = 0;
     this.maxSpeed = 10;
