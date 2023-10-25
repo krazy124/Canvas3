@@ -10,11 +10,13 @@ export class Player {
     this.vy = 0;
     this.weight = 1;
     this.image = document.getElementById("player");
+    this.frameX = 0;
+    this.frameY = 0;
     this.speed = 0;
-    this.maxSpeed = 5;
-    this.states = [];
-    this.currentSate = this.states[0];
-    //this.currentState.enter();
+    this.maxSpeed = 10;
+    this.states = [new Sitting(this)];
+    this.currentState = this.states[0];
+    this.currentState.enter();
   }
   update(input) {
     //horizontal movement
@@ -34,8 +36,8 @@ export class Player {
   draw(context) {
     context.drawImage(
       this.image,
-      0,
-      0,
+      this.frameX * this.width,
+      this.frameY * this.height,
       this.width,
       this.height,
       this.x,
@@ -46,5 +48,9 @@ export class Player {
   }
   onGround() {
     return this.y >= this.game.height - this.height;
+  }
+  setState(state) {
+    this.currentState = this.states[state];
+    this.currentState.enter();
   }
 }
