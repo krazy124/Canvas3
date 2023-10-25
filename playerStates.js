@@ -4,15 +4,19 @@ const states = {
   RUNNING: 1,
   JUMPING: 2,
 };
+
 class State {
   constructor(state) {
-    this.state = state;
+    this.state = state; //converted state to a class property
   }
 }
 
+//each state will have it's own class that extends State
 export class Sitting extends State {
+  //constructor takes a refernce to the player object so it can access the properties of the player class
   constructor(player) {
-    super("SITTING");
+    //Because we are extending the class State we use the super key word
+    super('SITTING');
     this.player = player;
   }
   enter() {

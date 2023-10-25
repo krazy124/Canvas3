@@ -1,3 +1,4 @@
+/*Global reset this makes sure the page looks the same across mulitple browsers*/
 * {
   margin: 0;
   padding: 0;
@@ -10,9 +11,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  /*scales the canvas size if it screen size is restrictd*/
   max-width: 100%;
   max-height: 100%;
 }
+/*we set the player sprite image to none so it will not show before it is needed.*/
 #player {
   display: none;
 }
