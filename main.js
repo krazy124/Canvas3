@@ -35,11 +35,19 @@ window.addEventListener('load', function () {
   const game = new Game(canvas.width, canvas.height);
   console.log(game);
 
+  //This function creates an animation loop that refreshes 60 times per second
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(
+      /*This clear the old paint evrytime there is updated change*/
+      0 /*starting and x coordinate*/,
+      0 /*starting and y coordinate*/,
+      canvas.width /*ending width*/,
+      canvas.height /*ending height*/
+    );
     game.update();
-    game.draw(ctx);
-    requestAnimationFrame(animate);
+    game.draw(ctx); //Calls draw from class Game and passes ctx as the context
+    requestAnimationFrame(animate); //This creates an animation loop
   }
+  //Calls animtae function and starts things moving
   animate();
 });
