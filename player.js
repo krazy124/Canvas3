@@ -21,6 +21,7 @@ export class Player {
   }
   //Update moves arround the character based on user input
   update(input) {
+    this.currentState.handleInput(input);
     //horizontal movement
     this.x += this.speed;
     if (input.includes('ArrowRight')) this.speed = this.maxSpeed;
