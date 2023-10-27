@@ -15,7 +15,12 @@ export class Player {
     this.frameY = 0;
     this.speed = 0; //Property for how quickly the player is moveing
     this.maxSpeed = 10; //Property that determines how many pixels the character moves per frame
-    this.states = [new Sitting(this), new Running(this), new Jumping(this)]; //Array of values
+    this.states = [
+      new Sitting(this),
+      new Running(this),
+      new Jumping(this),
+      new Falling(this),
+    ]; //Array of values
     this.currentState = this.states[0]; //Points to an index in this.states
     this.currentState.enter(); //Activates the initial default state when Player object is intialized for the first time
   }
