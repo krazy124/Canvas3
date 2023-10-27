@@ -1,7 +1,7 @@
 import { Player } from './player.js';
 import { InputHandler } from './input.js';
 
-/*load events makes sure all resources are loaded and avaiable before running any code*/
+//load events makes sure all resources are loaded and avaiable before running any code
 window.addEventListener('load', function () {
   const canvas = document.getElementById('canvas1');
   const ctx = canvas.getContext('2d');
@@ -9,45 +9,43 @@ window.addEventListener('load', function () {
   canvas.width = 500;
   canvas.height = 500;
 
-  //Main brain of our project. Everything will go through this
+  //Main brain of our project. Everything will go through Game
   class Game {
-    //All code in contructor will runn when it is call. We can take advantage of this.
+    //All code inside will run when constructor is called. We can take advantage of this.
     constructor(width, height) {
-      //These are our class properties
       this.width = width;
       this.height = height;
-      //Makes a new player class instance. So when a game is created a player is created also.
-      //Because this new player class instance is inside of game class we pass Player "this" which points to the game object it is inside of.Now we have access to all of Players methods and object
-      this.player = new Player(this);
-      this.input = new InputHandler();
+      this.player = new Player(this); //Makes a new player class instance. So when a game is created a player is created also. Because this new player class instance is inside of game class we pass Player "this" which points to the game object it is inside of.Now we have access to all of Players methods and object
+      this.input = new InputHandler(); //used from inputhandler in input.js
     }
     //this will run for every animation frames and trigger and tigger any calculations that needs to happen.
     update() {
-      this.player.update(this.input.keys);
+      this.player.update(this.input.keys); //this is the array from input.js that keep track og the current input
     }
-    //Will draw all our images and scores
+
+    //Draws all our images and scores
     draw(context) {
-      //We call Player classes draw method
-      this.player.draw(context);
+      this.player.draw(context); //Calls Player classes draw method
     }
   }
+
   //This is a new instance of Game class. It is passed a width and a height.
   const game = new Game(canvas.width, canvas.height);
   console.log(game);
 
   //This function creates an animation loop that refreshes 60 times per second
   function animate() {
+    //This clear the old paint evrytime there is updated change
     ctx.clearRect(
-      /*This clear the old paint evrytime there is updated change*/
-      0 /*starting and x coordinate*/,
-      0 /*starting and y coordinate*/,
-      canvas.width /*ending width*/,
-      canvas.height /*ending height*/
+      0, //starting x coordinate
+      0, //starting y coordinate
+      canvas.width, //ending width
+      canvas.height //ending height
     );
     game.update();
-    game.draw(ctx); //Calls draw from class Game and passes ctx as the context
+    game.draw(ctx);
     requestAnimationFrame(animate); //This creates an animation loop
   }
-  //Calls animtae function and starts things moving
+  //Calls animate function and starts things moving
   animate();
 });

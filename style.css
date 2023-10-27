@@ -10,10 +10,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  /*scales the canvas size if it screen size is restrictd*/
-  max-width: 100%;
-  max-height: 100%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /*moves the canvas to the middle of the screen*/
+  max-width: 100%; /*scales the canvas size if it screen size is restrictd*/
+  max-height: 100%; /*ditto*/
 }
 /*we set the player sprite image to none so it will not show before it is needed.*/
 #player {
