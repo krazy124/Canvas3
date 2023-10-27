@@ -18,34 +18,32 @@ window.addEventListener('load', function () {
       this.player = new Player(this); //Makes a new player class instance. So when a game is created a player is created also. Because this new player class instance is inside of game class we pass Player "this" which points to the game object it is inside of.Now we have access to all of Players methods and object
       this.input = new InputHandler(); //used from inputhandler in input.js
     }
-    //this will run for every animation frames and trigger and tigger any calculations that needs to happen.
+    //Runs for every animation frame and triggers any calculations that needs to happen.
     update() {
-      this.player.update(this.input.keys); //this is the array from input.js that keep track og the current input
+      this.player.update(this.input.keys); //The array from input.js that keep track of the current input
     }
-
     //Draws all our images and scores
     draw(context) {
       this.player.draw(context); //Calls Player classes draw method
     }
   }
-
-  //This is a new instance of Game class. It is passed a width and a height.
+  //A new instance of Game class, passed a width and a height.
   const game = new Game(canvas.width, canvas.height);
   console.log(game);
 
-  //This function creates an animation loop that refreshes 60 times per second
+  //Creates an animation loop that refreshes 60 times per second
   function animate() {
-    //This clear the old paint evrytime there is updated change
+    //Clears the old paint evrytime there is updated change
     ctx.clearRect(
       0, //starting x coordinate
       0, //starting y coordinate
       canvas.width, //ending width
-      canvas.height //ending height
+      canvas.height /*ending height*/
     );
     game.update();
     game.draw(ctx);
-    requestAnimationFrame(animate); //This creates an animation loop
+    requestAnimationFrame(animate); //Creates an animation loop
   }
-  //Calls animate function and starts things moving
+  //Starts things moving
   animate();
 });

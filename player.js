@@ -15,9 +15,9 @@ export class Player {
     this.frameY = 0;
     this.speed = 0; //Property for how quickly the player is moveing
     this.maxSpeed = 10; //Property that determines how many pixels the character moves per frame
-    this.states = [new Sitting(this)];
-    this.currentState = this.states[0];
-    this.currentState.enter();
+    this.states = [new Sitting(this)]; //Array of values
+    this.currentState = this.states[0]; //Points to an index in this.states
+    this.currentState.enter(); //Activates the initial default state when Player object is intialized for the first time
   }
   //Update moves arround the character based on user input
   update(input) {
@@ -34,8 +34,9 @@ export class Player {
     //vertical movement
     if (input.includes('ArrowUp') && this.onGround()) this.vy -= 28.5; //If player is on the ground the player jumps when ArrowUp is pressed. Notice vy is how high the player can jump.
     this.y += this.vy;
-    if (!this.onGround()) this.vy += this.weight;
-    //Increases players weight until back on the ground. This will make a nice jump curve.
+    if (!this.onGround())
+      //Increases players weight until back on the ground. This will make a nice jump curve.
+      this.vy += this.weight;
     else this.vy = 0; //Player is on the ground
   }
   //Draw will draw the character. It needs to be passed context to specify which canvas it needs to draw on.
@@ -53,10 +54,10 @@ export class Player {
       this.height //The height of the character on canvas
     );
   }
-
+  //Checks to see if the player is on the ground
   onGround() {
     return this.y >= this.game.height - this.height;
-  } //Checks to see if the player is on the ground
+  }
   setState(state) {
     this.currentState = this.states[state];
     this.currentState.enter();
