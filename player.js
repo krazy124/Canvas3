@@ -1,4 +1,4 @@
-import { Sitting, Running } from './playerStates.js';
+import { Sitting, Running, Jumping, Falling } from './playerStates.js';
 
 //This classes job is to draw our character
 export class Player {
@@ -15,7 +15,7 @@ export class Player {
     this.frameY = 0;
     this.speed = 0; //Property for how quickly the player is moveing
     this.maxSpeed = 10; //Property that determines how many pixels the character moves per frame
-    this.states = [new Sitting(this), new Running(this)]; //Array of values
+    this.states = [new Sitting(this), new Running(this), new Jumping(this)]; //Array of values
     this.currentState = this.states[0]; //Points to an index in this.states
     this.currentState.enter(); //Activates the initial default state when Player object is intialized for the first time
   }
@@ -33,7 +33,8 @@ export class Player {
     if (this.x > this.game.width - this.width)
       this.x = this.game.width - this.width; //Prevents character from moving off canvas to right
     //vertical movement
-    if (input.includes('ArrowUp') && this.onGround()) this.vy -= 28.5; //If player is on the ground the player jumps when ArrowUp is pressed. Notice vy is how high the player can jump.
+    // if (input.includes('ArrowUp') && this.onGround()) this.vy -= 28.5; //If player is on the ground the player jumps when ArrowUp is pressed. Notice vy is how high the player can jump.
+
     this.y += this.vy;
     if (!this.onGround())
       //Increases players weight until back on the ground. This will make a nice jump curve.
