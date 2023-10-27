@@ -1,4 +1,4 @@
-import { Sitting } from './playerStates.js';
+import { Sitting, Running } from './playerStates.js';
 
 //This classes job is to draw our character
 export class Player {
@@ -15,7 +15,7 @@ export class Player {
     this.frameY = 0;
     this.speed = 0; //Property for how quickly the player is moveing
     this.maxSpeed = 10; //Property that determines how many pixels the character moves per frame
-    this.states = [new Sitting(this)]; //Array of values
+    this.states = [new Sitting(this), new Running(this)]; //Array of values
     this.currentState = this.states[0]; //Points to an index in this.states
     this.currentState.enter(); //Activates the initial default state when Player object is intialized for the first time
   }
@@ -58,6 +58,7 @@ export class Player {
   onGround() {
     return this.y >= this.game.height - this.height;
   }
+  //Takes a index number from states array chnages the player current state. Then calls the enter method to change the player to that state
   setState(state) {
     this.currentState = this.states[state];
     this.currentState.enter();
