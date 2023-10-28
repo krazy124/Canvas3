@@ -7,7 +7,7 @@ export class Player {
     this.width = 100; //The width and height are the size of each frame of the character sprite sheet
     this.height = 91.3;
     this.x = 0; //Original position of character in x and y coordinates
-    this.y = this.game.height - this.height; //because we gave the player access to game it can access the game instances height with "this.game.height". note "This.height" represents the height of the player.
+    this.y = this.game.height - this.height - this.game.groundMargin; //because we gave the player access to game it can access the game instances height with "this.game.height". note "This.height" represents the height of the player.
     this.vy = 0; //Vertical speed(jump speed)
     this.weight = 1;
     this.image = document.getElementById('player'); //this uses the player img form index.html
@@ -75,7 +75,7 @@ export class Player {
   }
   //Checks to see if the player is on the ground
   onGround() {
-    return this.y >= this.game.height - this.height;
+    return this.y >= this.game.height - this.height - this.game.groundMargin;
   }
   //Takes a index number from states array chnages the player current state. Then calls the enter method to change the player to that state
   setState(state) {
