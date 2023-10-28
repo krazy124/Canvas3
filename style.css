@@ -18,6 +18,11 @@
   max-height: 100%; /*ditto*/
 }
 /*we set the player sprite image to none so it will not show before it is needed.*/
-#player {
+#player,
+#layer1,
+#layer2,
+#layer3,
+#layer4,
+#layer5 {
   display: none;
 }
