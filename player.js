@@ -45,6 +45,9 @@ export class Player {
       //Increases players weight until back on the ground. This will make a nice jump curve.
       this.vy += this.weight;
     else this.vy = 0; //Player is on the ground
+    if (frameX < maxframe) {
+      this.frame++; //Starts the animation cycle progression. Makes the player not static. Breathes, wags tail, legs move when running ect.
+    }
   }
   //Draw will draw the character. It needs to be passed context to specify which canvas it needs to draw on.
   draw(context) {
