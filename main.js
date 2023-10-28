@@ -16,6 +16,7 @@ window.addEventListener('load', function () {
       this.width = width;
       this.height = height;
       this.groundMargin = 50;
+      this.speed = 3;
       this.player = new Player(this); //Makes a new player class instance. So when a game is created a player is created also. Because this new player class instance is inside of game class we pass Player "this" which points to the game object it is inside of.Now we have access to all of Players methods and object
       this.input = new InputHandler(); //used from inputhandler in input.js
     }
