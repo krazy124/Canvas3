@@ -45,7 +45,8 @@ export class Running extends State {
   }
   //Sets a player up when the player enters a state
   enter() {
-    this.player.maxFrame = 8;
+    this.player.frameX = 0;
+    this.player.maxFrame = 7;
     this.player.frameY = 3; //The sprite frameY where the player is sitting is 5
   }
   //Reacts to user inputs depending on the player state
@@ -67,6 +68,7 @@ export class Jumping extends State {
   }
   //Sets a player up when the player enters a state
   enter() {
+    this.player.frameX = 0;
     if (this.player.onGround()) this.player.vy -= 28.5; //If the player is ont he ground, begin a jump
     this.player.maxFrame = 6;
     this.player.frameY = 1; //Change the sprite image to a jumping image frame
@@ -89,6 +91,7 @@ export class Falling extends State {
   }
   //Sets a player up when the player enters a state
   enter() {
+    this.player.frameX = 0;
     if (this.player.onGround()) this.player.vy -= 28.5;
     this.player.maxFrame = 6;
     this.player.frameY = 2; //Changes the sprite frame to a falling image
