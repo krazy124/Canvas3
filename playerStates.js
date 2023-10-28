@@ -28,7 +28,9 @@ export class Sitting extends State {
   //Reacts to user inputs depending on the player state
   handleInput(input) {
     if (input.includes('ArrowLeft') || input.includes('ArrowRight')) {
-      this.player.setState(states.RUNNING);
+      this.player.setState(states.RUNNING); //Switch Player to running state if Left or Right is pressed
+    } else if (input.includes('ArrowUp')) {
+      this.player.setState(states.JUMPING); //Switch player jumping state if ArrowUp is pressed
     }
   }
 }
@@ -63,13 +65,14 @@ export class Jumping extends State {
   }
   //Sets a player up when the player enters a state
   enter() {
-    if (this.player.onGround()) this.player.vy -= 28.5;
-    this.player.frameY = 1; //The sprite frameY where the player is sitting is 5
+    if (this.player.onGround()) this.player.vy -= 28.5; //If the player is ont he ground, begin a jump
+    this.player.frameY = 1; //Change the sprite image to a jumping image frame
   }
   //Reacts to user inputs depending on the player state
   handleInput(input) {
     if (this.player.vy > this.player.weight) {
-      this.player.setState(states.FALLING);
+      //Listens for the player to begins his descent
+      this.player.setState(states.FALLING); //Change to falling state
     }
   }
 }
@@ -84,7 +87,7 @@ export class Falling extends State {
   //Sets a player up when the player enters a state
   enter() {
     if (this.player.onGround()) this.player.vy -= 28.5;
-    this.player.frameY = 1; //The sprite frameY where the player is sitting is 5
+    this.player.frameY = 2; //Changes the sprite frame to a falling image
   }
   //Reacts to user inputs depending on the player state
   handleInput(input) {
