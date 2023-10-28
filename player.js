@@ -14,6 +14,9 @@ export class Player {
     this.frameX = 0;
     this.frameY = 0;
     this.maxFrame = 5; //Maximum number of frames in a row
+    this.fps = 20; //Frames per second
+    this.frameInterval = 1000 / this.fps;
+    this.frameTimer = 0;
     this.speed = 0; //Property for how quickly the player is moveing
     this.maxSpeed = 10; //Property that determines how many pixels the character moves per frame
     this.states = [
@@ -27,7 +30,7 @@ export class Player {
     this.currentState.enter(); //Activates the initial default state when Player object is intialized for the first time
   }
   //Update moves arround the character based on user input
-  update(input) {
+  update(input, deltaTime) {
     this.currentState.handleInput(input);
     //horizontal movement
     this.x += this.speed;
@@ -46,9 +49,14 @@ export class Player {
       this.vy += this.weight;
     else this.vy = 0; //Player is on the ground
     //Sprite Animation area
-    if (this.frameX < this.maxFrame) {
-      this.frameX++; //Starts the animation cycle progression. Makes the player not static. Breathes, wags tail, legs move when running ect.
-    } else this.frameX = 0; //Moves animation cycle back first frame
+    if (this.frameTimer > this.frameInterval) {
+      this.frameTimer = 0;
+      if (this.frameX < this.maxFrame) this.frameX++;
+      //Starts the animation cycle progression. Makes the player not static. Breathes, wags tail, legs move when running ect.
+      else this.frameX = 0; //Moves animation cycle back first frame
+    } else {
+      this.frameTimer += deltaTime;
+    }
   }
   //Draw will draw the character. It needs to be passed context to specify which canvas it needs to draw on.
   draw(context) {

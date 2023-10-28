@@ -19,8 +19,8 @@ window.addEventListener('load', function () {
       this.input = new InputHandler(); //used from inputhandler in input.js
     }
     //Runs for every animation frame and triggers any calculations that needs to happen.
-    update() {
-      this.player.update(this.input.keys); //The array from input.js that keep track of the current input
+    update(deltaTime) {
+      this.player.update(this.input.keys, deltaTime); //The array from input.js that keep track of the current input
     }
     //Draws all our images and scores
     draw(context) {
@@ -30,20 +30,23 @@ window.addEventListener('load', function () {
   //A new instance of Game class, passed a width and a height.
   const game = new Game(canvas.width, canvas.height);
   console.log(game);
+  let lastTime = 0; //Helper Variable
 
   //Creates an animation loop that refreshes 60 times per second
-  function animate() {
-    //Clears the old paint evrytime there is updated change
+  function animate(timeStamp) {
+    const deltaTime = timeStamp - lastTime;
+    lastTime = timeStamp;
+    //Clears the old paint evrytime there is updated change;
     ctx.clearRect(
       0, //starting x coordinate
       0, //starting y coordinate
       canvas.width, //ending width
       canvas.height /*ending height*/
     );
-    game.update();
+    game.update(deltaTime);
     game.draw(ctx);
     requestAnimationFrame(animate); //Creates an animation loop
   }
   //Starts things moving
-  animate();
+  animate(0);
 });
