@@ -14,7 +14,7 @@ export class Player {
     this.frameX = 0;
     this.frameY = 0;
     this.maxFrame = 5; //Maximum number of frames in a row.This will chnage depending of on the state of the player
-    this.fps = 20; //Frames per second
+    this.fps = 25; //Frames per second
     this.frameInterval = 1000 / this.fps;
     this.frameTimer = 0;
     this.speed = 0; //Property for how quickly the player is moveing

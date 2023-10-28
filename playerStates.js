@@ -23,7 +23,8 @@ export class Sitting extends State {
   }
   //Sets a player up when the player enters a state
   enter() {
-    this.player.maxFrame = 4;
+    this.player.frameX = 0;
+    this.player.maxFrame = 8;
     this.player.frameY = 5; //The sprite frameY where the player is sitting is 5
   }
   //Reacts to user inputs depending on the player state
