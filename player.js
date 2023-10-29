@@ -78,8 +78,9 @@ export class Player {
     return this.y >= this.game.height - this.height - this.game.groundMargin;
   }
   //Takes a index number from states array chnages the player current state. Then calls the enter method to change the player to that state
-  setState(state) {
+  setState(state, speed) {
     this.currentState = this.states[state];
+    this.game.speed = this.game.maxSpeed * speed;
     this.currentState.enter();
   }
 }

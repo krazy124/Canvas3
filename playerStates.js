@@ -30,9 +30,9 @@ export class Sitting extends State {
   //Reacts to user inputs depending on the player state
   handleInput(input) {
     if (input.includes('ArrowLeft') || input.includes('ArrowRight')) {
-      this.player.setState(states.RUNNING); //Switch Player to running state if Left or Right is pressed
+      this.player.setState(states.RUNNING, 1); //Switch Player to running state if Left or Right is pressed
     } else if (input.includes('ArrowUp')) {
-      this.player.setState(states.JUMPING); //Switch player jumping state if ArrowUp is pressed
+      this.player.setState(states.JUMPING, 1); //Switch player jumping state if ArrowUp is pressed
     }
   }
 }
@@ -53,9 +53,9 @@ export class Running extends State {
   //Reacts to user inputs depending on the player state
   handleInput(input) {
     if (input.includes('ArrowDown')) {
-      this.player.setState(states.SITTING);
+      this.player.setState(states.SITTING, 0);
     } else if (input.includes('ArrowUp')) {
-      this.player.setState(states.JUMPING);
+      this.player.setState(states.JUMPING, 1);
     }
   }
 }
@@ -70,7 +70,7 @@ export class Jumping extends State {
   //Sets a player up when the player enters a state
   enter() {
     this.player.frameX = 0;
-    if (this.player.onGround()) this.player.vy -= 28.5; //If the player is ont he ground, begin a jump
+    if (this.player.onGround()) this.player.vy -= 25.5; //If the player is ont he ground, begin a jump
     this.player.maxFrame = 6;
     this.player.frameY = 1; //Change the sprite image to a jumping image frame
   }
@@ -78,7 +78,7 @@ export class Jumping extends State {
   handleInput(input) {
     if (this.player.vy > this.player.weight) {
       //Listens for the player to begins his descent
-      this.player.setState(states.FALLING); //Change to falling state
+      this.player.setState(states.FALLING, 1); //Change to falling state
     }
   }
 }
@@ -100,7 +100,7 @@ export class Falling extends State {
   //Reacts to user inputs depending on the player state
   handleInput(input) {
     if (this.player.onGround()) {
-      this.player.setState(states.RUNNING);
+      this.player.setState(states.RUNNING, 1);
     }
   }
 }
