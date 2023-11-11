@@ -26,6 +26,8 @@
 #layer5,
 #enemy_fly,
 #enemy_plant,
-#enemy_spider {
+#enemy_spider,
+#fire,
+#collisionAnimation {
   display: none;
 }

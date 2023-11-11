@@ -1,6 +1,15 @@
-import { Sitting, Running, Jumping, Falling } from './playerStates.js';
+import {
+  Sitting,
+  Running,
+  Jumping,
+  Falling,
+  Rolling,
+  Diving,
+  Hit,
+} from './playerStates.js';
+import { CollisionAnimation } from './collisionAnimation.js';
 
-//This classes job is to draw our character
+//This classes job is to draw character
 export class Player {
   constructor(game) {
     this.game = game; //The contrsuctor takes the expects game  as an arguement. This will give access to the games width and height ect.*/;
@@ -21,34 +30,45 @@ export class Player {
     this.maxSpeed = 10; //Property that determines how many pixels the character moves per frame
     this.states = [
       //The indexes need to match the states enum at the top of playerStates.js
-      new Sitting(this),
-      new Running(this),
-      new Jumping(this),
-      new Falling(this),
+      new Sitting(this.game),
+      new Running(this.game),
+      new Jumping(this.game),
+      new Falling(this.game),
+      new Rolling(this.game),
+      new Diving(this.game),
+      new Hit(this.game),
     ];
-    this.currentState = this.states[0]; //Points to an index in this.states
-    this.currentState.enter(); //Activates the initial default state when Player object is intialized for the first time
   }
   //Update moves arround the character based on user input
   update(input, deltaTime) {
+    this.checkCollisions();
     this.currentState.handleInput(input);
-    //horizontal movement
+    //------horizontal movement
     this.x += this.speed;
-    if (input.includes('ArrowRight')) this.speed = this.maxSpeed;
+    if (input.includes('ArrowRight') && this.currentState !== this.states[6])
+      this.speed = this.maxSpeed;
     // When ArrowRight is press the character will move to the right
-    else if (input.includes('ArrowLeft')) this.speed = -this.maxSpeed;
+    else if (
+      input.includes('ArrowLeft') &&
+      this.currentState !== this.states[6]
+    )
+      this.speed = -this.maxSpeed;
     //When ArrowLeft is press the character will move to the left
     else this.speed = 0; //Will reset speed to 0 if no keys are pressed
     if (this.x < 0) this.x = 0; //Prevents character from moving off canvas to left
     if (this.x > this.game.width - this.width)
       this.x = this.game.width - this.width; //Prevents character from moving off canvas to right
-    //vertical movement
+    //------vertical movement
     this.y += this.vy;
     if (!this.onGround())
       //Increases players weight until back on the ground. This will make a nice jump curve.
       this.vy += this.weight;
     else this.vy = 0; //Player is on the ground
-    //Sprite Animation area
+    //-----Vertical boudaries
+    if (this.y > this.game.height - this.height - this.game.groundMargin) {
+      this.y = this.game.height - this.height - this.game.groundMargin;
+    }
+    //-----Sprite Animation area
     if (this.frameTimer > this.frameInterval) {
       this.frameTimer = 0;
       if (this.frameX < this.maxFrame) this.frameX++;
@@ -60,7 +80,9 @@ export class Player {
   }
   //Draw will draw the character. It needs to be passed context to specify which canvas it needs to draw on.
   draw(context) {
-    //see note A on bottom
+    if (this.game.debug)
+      context.strokeRect(this.x, this.y, this.width, this.height);
+    //see note A on bottomd
     context.drawImage(
       this.image, //Source image this is on the html
       this.frameX * this.width, //Frame x coordinate of the desired image
@@ -82,6 +104,33 @@ export class Player {
     this.currentState = this.states[state];
     this.game.speed = this.game.maxSpeed * speed;
     this.currentState.enter();
+  }
+  checkCollisions() {
+    this.game.enemies.forEach((enemy) => {
+      if (
+        enemy.x < this.x + this.width &&
+        enemy.x + enemy.width > this.x &&
+        enemy.y < this.y + this.height &&
+        enemy.y + enemy.height > this.y
+      ) {
+        enemy.markedForDeletion = true;
+        this.game.collisions.push(
+          new CollisionAnimation(
+            this.game,
+            enemy.x + enemy.width * 0.5,
+            enemy.y + enemy.height * 0.5
+          )
+        );
+        if (
+          this.currentState === this.states[4] ||
+          this.currentState === this.states[5]
+        ) {
+          this.game.score++;
+        } else {
+          this.setState(6, 0);
+        }
+      }
+    });
   }
 }
 
